@@ -32,6 +32,12 @@ export class Gameboard {
     if (length === 2 && horizontal) {
       this.board['A'][3] = `${name}1`;
       this.board['B'][3] = `${name}2`;
+    } else if (length === 5 && horizontal) {
+      this.board['D'][1] = `${name}1`;
+      this.board['E'][1] = `${name}2`;
+      this.board['F'][1] = `${name}3`;
+      this.board['G'][1] = `${name}4`;
+      this.board['H'][1] = `${name}5`;
     }
   }
 }

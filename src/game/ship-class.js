@@ -1,3 +1,5 @@
+import { gameBoardPlayer1 } from '../main';
+
 export class Ship {
   constructor(name, length) {
     this.name = name;
@@ -14,5 +16,9 @@ export class Ship {
     if (this.hit === this.length) {
       return (this.isSunk = true);
     }
+  }
+
+  placeCarrier(playerBoard) {
+    playerBoard.placeShip('Carrier', 5);
   }
 }
