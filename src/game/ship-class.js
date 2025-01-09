@@ -1,8 +1,5 @@
-import { gameBoardPlayer1 } from '../main';
-
 export class Ship {
-  constructor(name, length) {
-    this.name = name;
+  constructor(length) {
     this.length = length;
     this.hit = 0;
     this.isSunk = false;
@@ -19,6 +16,20 @@ export class Ship {
   }
 
   placeCarrier(playerBoard) {
-    playerBoard.placeShip('Carrier', 5);
+    for (let i = 0; i < this.length; i++) {
+      playerBoard.board[playerBoard.xAxis[i]][i] = `carrier${i}`;
+    }
+    return playerBoard.board;
+  }
+
+  placeBattleship(playerBoard) {
+    for (let i = 0; i < 4; i++) {
+      if (playerBoard.board[playerBoard.xAxis[i]][i] != '') {
+        playerBoard.board[playerBoard.xAxis[i]][i + 1] = `battleship${i}`;
+      } else {
+        playerBoard.board[playerBoard.xAxis[i]][i] = `battleship${i}`;
+      }
+    }
+    return playerBoard.board;
   }
 }

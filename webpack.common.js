@@ -7,7 +7,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Diary App',
+      title: 'Battleship',
       template: './src/index.html',
     }),
   ],

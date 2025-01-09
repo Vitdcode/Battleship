@@ -1,20 +1,12 @@
 export class Gameboard {
   constructor() {
+    this.xAxis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     this.board = this.createBoard();
-  }
-
-  createBoard10Spaces() {
-    let board10Spaces = [];
-    for (let i = 0; i < 10; i++) {
-      board10Spaces.push('');
-    }
-    return board10Spaces;
   }
 
   createBoard() {
     let board = {};
-    const xAxis = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    xAxis.forEach((letter) => {
+    this.xAxis.forEach((letter) => {
       board[letter] = createYAxisHelperFunction();
     });
 
@@ -28,7 +20,7 @@ export class Gameboard {
     return board;
   }
 
-  placeShip(name, length, horizontal = true) {
+  /*   placeShipTest(name, length, horizontal = true) {
     if (length === 2 && horizontal) {
       this.board['A'][3] = `${name}1`;
       this.board['B'][3] = `${name}2`;
@@ -40,4 +32,21 @@ export class Gameboard {
       this.board['H'][1] = `${name}5`;
     }
   }
+
+  placeCarrier(horizontal = true) {
+    console.log(this.board);
+    for (let i = 0; i < 5; i++) {
+      this.board[this.xAxis[i]][i] = `Cruiser${i}`;
+    }
+  }
+
+  placeBattleship() {
+    for (let i = 0; i < 4; i++) {
+      if (this.board[this.xAxis[i]][i] != '') {
+        this.board[this.xAxis[i]][i + 1] = `Battleship${i}`;
+      } else {
+        this.board[this.xAxis[i]][i] = `Battleship${i}`;
+      }
+    }
+  } */
 }

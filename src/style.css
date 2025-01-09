@@ -2,6 +2,10 @@
 }
 
 body {
+  display: flex;
+  gap: 90px;
+  flex-direction: column;
+  align-items: center;
   background-color: rgb(27, 52, 82);
 }
 
@@ -58,4 +62,52 @@ body {
   to {
     max-height: 100%;
   }
+}
+
+#header {
+  color: white;
+}
+
+#playerBoard1 {
+  display: grid;
+  background-color: rgba(230, 97, 148, 0.233);
+  border-radius: 10px;
+  padding-right: 20px;
+  padding-left: 10px;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+#numbers-board {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  align-items: center;
+  grid-column: 1/2;
+  color: white;
+  margin-right: 10px;
+}
+
+#board-letters {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(10, 1fr);
+  grid-column: 2/3;
+  justify-items: center;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#board-wrapper {
+  display: grid;
+  height: 800px;
+  width: 800px;
+  gap: 5px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+}
+
+.field {
+  background-color: rgb(223, 244, 255);
+  border-radius: 4px;
+  aspect-ratio: 1;
 }
