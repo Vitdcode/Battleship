@@ -1,4 +1,4 @@
-import { createGameboardUi, GameboardUi } from '../../ui/gameboard-ui';
+import { createGameboardUi, GameboardUi, printShipsOnGameboard } from '../../ui/gameboard-ui';
 import { Gameboard } from '../gameboard-class';
 import { Ship } from '../ship-class';
 
@@ -15,7 +15,9 @@ export class Player1 {
 
   placeCarrier() {
     const carrier = new Ship(5);
-    return carrier.placeCarrier(this.gameboard);
+    carrier.placeCarrier(this.gameboard);
+    printShipsOnGameboard(this.gameboard);
+    return carrier;
   }
 
   placeBattleship() {

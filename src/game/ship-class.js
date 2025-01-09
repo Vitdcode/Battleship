@@ -17,7 +17,7 @@ export class Ship {
 
   placeCarrier(playerBoard) {
     for (let i = 0; i < this.length; i++) {
-      playerBoard.board[playerBoard.xAxis[i]][i] = `carrier${i}`;
+      playerBoard.board[playerBoard.xAxis[0]][i] = `carrier${i}`;
     }
     return playerBoard.board;
   }

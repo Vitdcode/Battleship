@@ -99,6 +99,7 @@ body {
 
 #board-wrapper {
   display: grid;
+  grid-auto-flow: column;
   height: 800px;
   width: 800px;
   gap: 5px;
@@ -107,6 +108,9 @@ body {
 }
 
 .field {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgb(223, 244, 255);
   border-radius: 4px;
   aspect-ratio: 1;
@@ -119,4 +123,11 @@ body {
 
 .field:active {
   background-color: rgb(167, 223, 255);
+}
+
+.ship-part {
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 85);
 }
