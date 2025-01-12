@@ -21,11 +21,9 @@ import { Gameboard } from '../game/gameboard-class';
 } */
 
 export function createGameboardUi(gameboard) {
-  const board = gameboard.board;
   const boardWrapper = document.querySelector('#board-wrapper');
-  Object.keys(board).forEach((letter, index) => {
-    for (let i = 0; i < board[letter].length; i++) {
-      console.log(board[letter].length);
+  Object.keys(gameboard).forEach((letter, index) => {
+    for (let i = 0; i < gameboard[letter].length; i++) {
       const field = document.createElement('div');
       field.id = `${letter}-${i}`;
       field.className = 'field';
@@ -35,12 +33,11 @@ export function createGameboardUi(gameboard) {
   return boardWrapper;
 }
 
-export function printShipsOnGameboard(gameboard) {
-  const board = gameboard.board;
-  for (const letter in board) {
-    const letterArray = board[letter];
+export function printShipOnGameboard(gameboard, shipName) {
+  for (const letter in gameboard) {
+    const letterArray = gameboard[letter];
     for (let i = 0; i < letterArray.length; i++) {
-      if (letterArray[i].includes('carrier')) {
+      if (letterArray[i].includes(shipName)) {
         const shipInUi = document.querySelector(`#${letter}-${i}`);
         const shipPart = document.createElement('div');
         shipPart.id = letterArray[i];

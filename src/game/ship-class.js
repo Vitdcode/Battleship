@@ -1,5 +1,8 @@
-export class Ship {
+import { Gameboard } from './gameboard-class';
+
+export class Ship extends Gameboard {
   constructor(length) {
+    super();
     this.length = length;
     this.hit = 0;
     this.isSunk = false;
@@ -16,20 +19,10 @@ export class Ship {
   }
 
   placeCarrier(playerBoard) {
-    for (let i = 0; i < this.length; i++) {
-      playerBoard.board[playerBoard.xAxis[0]][i] = `carrier${i}`;
-    }
-    return playerBoard.board;
+    super.placeShipOnGameboard(playerBoard, 'carrier' /* super.randomizeOrientation() */);
   }
 
   placeBattleship(playerBoard) {
-    for (let i = 0; i < 4; i++) {
-      if (playerBoard.board[playerBoard.xAxis[i]][i] != '') {
-        playerBoard.board[playerBoard.xAxis[i]][i + 1] = `battleship${i}`;
-      } else {
-        playerBoard.board[playerBoard.xAxis[i]][i] = `battleship${i}`;
-      }
-    }
-    return playerBoard.board;
+    super.placeShipOnGameboard(playerBoard, 'battleship' /*  super.randomizeOrientation() */);
   }
 }
