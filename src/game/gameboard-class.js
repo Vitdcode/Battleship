@@ -59,8 +59,8 @@ export class Gameboard {
 
   surroundingSpacesAreEmptyCheckVertical(playerBoard, randomXAxis, randomYAxis) {
     if (
-      this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'top') &&
-      this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'bottom') &&
+      this.checkTopBottomVertical(playerBoard, randomXAxis, randomYAxis, 'top') &&
+      this.checkTopBottomVertical(playerBoard, randomXAxis, randomYAxis, 'bottom') &&
       this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'left') &&
       this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'right')
     ) {
@@ -71,13 +71,15 @@ export class Gameboard {
   surroundingSpacesAreEmptyCheckHorizontal(playerBoard, randomXAxis, randomYAxis) {
     if (
       this.checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, 'left') &&
-      this.checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, 'right')
+      this.checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, 'right') &&
+      this.checkTopBottomHorizontal(playerBoard, randomXAxis, randomYAxis, 'top') &&
+      this.checkTopBottomHorizontal(playerBoard, randomXAxis, randomYAxis, 'bottom')
     ) {
       return true;
     }
   }
 
-  checkVertical(playerBoard, randomXAxis, randomYAxis, direction) {
+  checkTopBottomVertical(playerBoard, randomXAxis, randomYAxis, direction) {
     //checks the top and bottom of the ship if it is empty if the ship is placed vertically
     if (
       (randomYAxis === 0 && direction === 'top') ||
@@ -128,6 +130,35 @@ export class Gameboard {
     const adjacentBoardCell = playerBoard[adjacentLetter]?.[randomYAxis];
 
     if (adjacentBoardCell === '') {
+      return true;
+    }
+  }
+
+  checkTopBottomHorizontal(playerBoard, randomXAxis, randomYAxis, direction) {
+    //checks the top and bottom of the ship if it is empty if the ship is placed horizontally
+    console.log(randomYAxis);
+    console.log(direction);
+    if (
+      (randomYAxis === 0 && direction === 'top') ||
+      (randomYAxis === 9 && direction === 'bottom')
+    ) {
+      return true;
+    }
+
+    const offset = direction === 'top' ? -1 : 1;
+    const letterArray = playerBoard[randomXAxis];
+    const indexInXAxis = this.xAxis().indexOf(randomXAxis);
+    let booleanArray = [];
+
+    for (let i = indexInXAxis; i < indexInXAxis + this.length; i++) {
+      if (playerBoard[this.xAxis()[i]][randomYAxis + offset] != '') {
+        booleanArray.push(false);
+      }
+    }
+    console.log(booleanArray);
+    if (booleanArray.includes(false)) {
+      return false;
+    } else {
       return true;
     }
   }
