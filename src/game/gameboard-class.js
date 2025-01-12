@@ -32,9 +32,6 @@ export class Gameboard {
     const randomRow = playerBoard[randomXAxis];
     const randomCol = randomRow[randomYAxis];
 
-    console.log(randomXAxis);
-    console.log(randomYAxis);
-
     if (
       orientation === 'vertical' &&
       this.surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis)
@@ -54,8 +51,8 @@ export class Gameboard {
 
   surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis) {
     if (
-      this.TopIsEmpty(playerBoard, randomXAxis, randomYAxis) &&
-      this.bottomIsEmpty(playerBoard, randomXAxis, randomYAxis) &&
+      this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'top') &&
+      this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'bottom') &&
       this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'left') &&
       this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'right')
     ) {
@@ -63,22 +60,16 @@ export class Gameboard {
     }
   }
 
-  TopIsEmpty(playerBoard, randomXAxis, randomYAxis) {
-    const upperCoordinate = playerBoard[randomXAxis][randomYAxis - 1];
-    if (upperCoordinate != undefined && upperCoordinate === '') {
+  checkVertical(playerBoard, randomXAxis, randomYAxis, direction) {
+    if (
+      (randomYAxis === 0 && direction === 'top') ||
+      (randomYAxis + this.length - 1 === 9 && direction === 'bottom')
+    )
       return true;
-    } else if (randomYAxis === 0) {
-      return true;
-    }
-  }
 
-  bottomIsEmpty(playerBoard, randomXAxis, randomYAxis) {
-    const bottomCoordinate = playerBoard[randomXAxis][randomYAxis + this.length - 1];
-    if (bottomCoordinate != undefined && bottomCoordinate === '') {
-      return true;
-    } else if (randomYAxis + this.length === 9) {
-      return true;
-    }
+    const letterArray = playerBoard[randomXAxis];
+    const checkIndex = direction === 'top' ? randomYAxis - 1 : randomYAxis + this.length;
+    return letterArray[checkIndex] === '';
   }
 
   checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, direction) {
