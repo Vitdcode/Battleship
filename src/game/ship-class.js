@@ -19,10 +19,10 @@ export class Ship extends Gameboard {
   }
 
   placeCarrier(playerBoard) {
-    super.placeShipOnGameboard(playerBoard, 'carrier' /* super.randomizeOrientation() */);
+    super.placeShipOnGameboard(playerBoard, 'carrier', super.randomizeOrientation());
   }
 
   placeBattleship(playerBoard) {
-    super.placeShipOnGameboard(playerBoard, 'battleship' /*  super.randomizeOrientation() */);
+    super.placeShipOnGameboard(playerBoard, 'battleship', super.randomizeOrientation());
   }
 }

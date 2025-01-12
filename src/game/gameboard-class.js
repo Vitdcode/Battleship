@@ -25,7 +25,8 @@ export class Gameboard {
     return xAxis;
   }
 
-  placeShipOnGameboard(playerBoard, shipName, orientation = 'horizontal', shipPartCounter = 1) {
+  placeShipOnGameboard(playerBoard, shipName, orientation, shipPartCounter = 1) {
+    console.log(orientation);
     const coorinates = this.randomizeCoordinates();
     const randomXAxis = coorinates[0];
     const randomYAxis = coorinates[1];
@@ -51,7 +52,7 @@ export class Gameboard {
       this.placeShipOnGameboard(
         playerBoard,
         shipName,
-        (orientation = 'horizontal'),
+        this.randomizeOrientation(),
         (shipPartCounter = 1)
       );
     }
@@ -61,8 +62,8 @@ export class Gameboard {
     if (
       this.checkTopBottomVertical(playerBoard, randomXAxis, randomYAxis, 'top') &&
       this.checkTopBottomVertical(playerBoard, randomXAxis, randomYAxis, 'bottom') &&
-      this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'left') &&
-      this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'right')
+      this.checkAdjacentSideVertical(playerBoard, randomXAxis, randomYAxis, 'left') &&
+      this.checkAdjacentSideVertical(playerBoard, randomXAxis, randomYAxis, 'right')
     ) {
       return true;
     }
@@ -136,8 +137,6 @@ export class Gameboard {
 
   checkTopBottomHorizontal(playerBoard, randomXAxis, randomYAxis, direction) {
     //checks the top and bottom of the ship if it is empty if the ship is placed horizontally
-    console.log(randomYAxis);
-    console.log(direction);
     if (
       (randomYAxis === 0 && direction === 'top') ||
       (randomYAxis === 9 && direction === 'bottom')
@@ -146,7 +145,6 @@ export class Gameboard {
     }
 
     const offset = direction === 'top' ? -1 : 1;
-    const letterArray = playerBoard[randomXAxis];
     const indexInXAxis = this.xAxis().indexOf(randomXAxis);
     let booleanArray = [];
 
@@ -155,7 +153,7 @@ export class Gameboard {
         booleanArray.push(false);
       }
     }
-    console.log(booleanArray);
+
     if (booleanArray.includes(false)) {
       return false;
     } else {
