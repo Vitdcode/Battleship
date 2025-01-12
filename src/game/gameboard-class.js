@@ -32,6 +32,9 @@ export class Gameboard {
     const randomRow = playerBoard[randomXAxis];
     const randomCol = randomRow[randomYAxis];
 
+    console.log(randomXAxis);
+    console.log(randomYAxis);
+
     if (
       orientation === 'vertical' &&
       this.surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis)
@@ -52,7 +55,9 @@ export class Gameboard {
   surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis) {
     if (
       this.TopIsEmpty(playerBoard, randomXAxis, randomYAxis) &&
-      this.bottomIsEmpty(playerBoard, randomXAxis, randomYAxis)
+      this.bottomIsEmpty(playerBoard, randomXAxis, randomYAxis) &&
+      this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'left') &&
+      this.checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, 'right')
     ) {
       return true;
     }
@@ -74,6 +79,22 @@ export class Gameboard {
     } else if (randomYAxis + this.length === 9) {
       return true;
     }
+  }
+
+  checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, direction) {
+    if (
+      (randomXAxis === 'A' && direction === 'left') ||
+      (randomXAxis === 'J' && direction === 'right')
+    )
+      return true;
+
+    const currentLetterIndex = this.xAxis().indexOf(randomXAxis);
+    const offset = direction === 'left' ? -1 : 1;
+    const AdjacentLetterArrayOnBoard = playerBoard[this.xAxis()[currentLetterIndex + offset]];
+
+    return AdjacentLetterArrayOnBoard?.slice(randomYAxis, randomYAxis + this.length).every(
+      (item) => item === ''
+    );
   }
 
   randomizeCoordinates() {
