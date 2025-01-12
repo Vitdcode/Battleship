@@ -25,7 +25,7 @@ export class Gameboard {
     return xAxis;
   }
 
-  placeShipOnGameboard(playerBoard, shipName, orientation = 'vertical', shipPartCounter = 1) {
+  placeShipOnGameboard(playerBoard, shipName, orientation = 'horizontal', shipPartCounter = 1) {
     const coorinates = this.randomizeCoordinates();
     const randomXAxis = coorinates[0];
     const randomYAxis = coorinates[1];
@@ -34,22 +34,30 @@ export class Gameboard {
 
     if (
       orientation === 'vertical' &&
-      this.surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis)
+      this.surroundingSpacesAreEmptyCheckVertical(playerBoard, randomXAxis, randomYAxis)
     ) {
       for (let i = randomYAxis; i < randomYAxis + this.length; i++) {
         randomRow[i] = `${shipName}-${shipPartCounter++}`;
+      }
+    } else if (
+      orientation === 'horizontal' &&
+      this.surroundingSpacesAreEmptyCheckHorizontal(playerBoard, randomXAxis, randomYAxis)
+    ) {
+      const indexInXAxis = this.xAxis().indexOf(randomXAxis);
+      for (let i = indexInXAxis; i < indexInXAxis + this.length; i++) {
+        playerBoard[this.xAxis()[i]][randomYAxis] = `${shipName}-${shipPartCounter++}`;
       }
     } else {
       this.placeShipOnGameboard(
         playerBoard,
         shipName,
-        (orientation = 'vertical'),
+        (orientation = 'horizontal'),
         (shipPartCounter = 1)
       );
     }
   }
 
-  surroundingSpacesAreEmpty(playerBoard, randomXAxis, randomYAxis) {
+  surroundingSpacesAreEmptyCheckVertical(playerBoard, randomXAxis, randomYAxis) {
     if (
       this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'top') &&
       this.checkVertical(playerBoard, randomXAxis, randomYAxis, 'bottom') &&
@@ -60,24 +68,37 @@ export class Gameboard {
     }
   }
 
+  surroundingSpacesAreEmptyCheckHorizontal(playerBoard, randomXAxis, randomYAxis) {
+    if (
+      this.checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, 'left') &&
+      this.checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, 'right')
+    ) {
+      return true;
+    }
+  }
+
   checkVertical(playerBoard, randomXAxis, randomYAxis, direction) {
+    //checks the top and bottom of the ship if it is empty if the ship is placed vertically
     if (
       (randomYAxis === 0 && direction === 'top') ||
       (randomYAxis + this.length - 1 === 9 && direction === 'bottom')
-    )
+    ) {
       return true;
+    }
 
     const letterArray = playerBoard[randomXAxis];
     const checkIndex = direction === 'top' ? randomYAxis - 1 : randomYAxis + this.length;
     return letterArray[checkIndex] === '';
   }
 
-  checkAdjacentSide(playerBoard, randomXAxis, randomYAxis, direction) {
+  checkAdjacentSideVertical(playerBoard, randomXAxis, randomYAxis, direction) {
+    //checks the left and right side of the ship if it is empty if the ship is placed vertically
     if (
       (randomXAxis === 'A' && direction === 'left') ||
       (randomXAxis === 'J' && direction === 'right')
-    )
+    ) {
       return true;
+    }
 
     const currentLetterIndex = this.xAxis().indexOf(randomXAxis);
     const offset = direction === 'left' ? -1 : 1;
@@ -86,6 +107,29 @@ export class Gameboard {
     return AdjacentLetterArrayOnBoard?.slice(randomYAxis, randomYAxis + this.length).every(
       (item) => item === ''
     );
+  }
+
+  checkAdjacentSideHorizontal(playerBoard, randomXAxis, randomYAxis, direction) {
+    //checks the left and right side of the ship if it is empty if the ship is placed horizontally
+    const currentLetterIndex = this.xAxis().indexOf(randomXAxis);
+
+    if (
+      (randomXAxis === 'A' && direction === 'left') ||
+      (this.xAxis()[currentLetterIndex + this.length - 1] === 'J' && direction === 'right')
+    ) {
+      return true;
+    }
+
+    const adjacentLetter =
+      direction === 'left'
+        ? this.xAxis()[currentLetterIndex - 1]
+        : this.xAxis()[currentLetterIndex + this.length];
+
+    const adjacentBoardCell = playerBoard[adjacentLetter]?.[randomYAxis];
+
+    if (adjacentBoardCell === '') {
+      return true;
+    }
   }
 
   randomizeCoordinates() {
