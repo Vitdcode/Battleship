@@ -1,12 +1,14 @@
+import { attackShip } from '../game/attack-ship';
+
 export function createGameboardUi(gameboard, id) {
   const boardAndTrackingBoardWrapper = document.createElement('div');
   boardAndTrackingBoardWrapper.id = `board-and-trackingBoard-wrapper-${id}`;
   const board = createBoard(id, boardAndTrackingBoardWrapper);
   const trackingBoard = createTrackingBoard(id, boardAndTrackingBoardWrapper);
-  /*   boardAndTrackingBoardWrapper.append(board, trackingBoard); */
   document.body.appendChild(boardAndTrackingBoardWrapper);
   createCells(gameboard, board, id);
   createCells(gameboard, trackingBoard, id);
+  attackShip();
 }
 
 function createCells(gameboard, boardWrapper, id) {
