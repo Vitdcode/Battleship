@@ -1,38 +1,25 @@
-import {
-  createGameboardUi,
-  GameboardUi,
-  printShipOnGameboard,
-  printShipsOnGameboard,
-} from '../../ui/gameboard-ui';
+import { createGameboardUi, printShipOnGameboard } from '../../ui/gameboard-ui';
 import { Gameboard } from '../gameboard-class';
 import { Ship } from '../ship-class';
 
 export class Player1 {
   constructor(name = 'Player 1') {
     this.gameboard = new Gameboard();
-    this.GameboardUi = createGameboardUi(this.gameboard.gameboard);
+    this.gameboardUi = createGameboardUi(this.gameboard.gameboard);
     this.name = name;
     this.ships = {
-      Carrier: this.placeCarrier(),
-      Battleship: this.placeBattleship(),
+      carrier: this.createShip('carrier', 5),
+      battleship: this.createShip('battleship', 4),
+      cruiser: this.createShip('cruiser', 3),
+      submarine: this.createShip('submarine', 3),
+      destroyer: this.createShip('destroyer', 2),
     };
   }
 
-  placeBattleship() {
-    const battleship = new Ship(4);
-    battleship.placeBattleship(this.gameboard.gameboard);
-    printShipOnGameboard(this.gameboard.gameboard, 'battleship');
-    return battleship;
+  createShip(name, length) {
+    const ship = new Ship(name, length);
+    ship.createShipData(this.gameboard.gameboard);
+    printShipOnGameboard(this.gameboard.gameboard, name);
+    return ship;
   }
-
-  placeCarrier() {
-    const carrier = new Ship(5);
-    carrier.placeCarrier(this.gameboard.gameboard);
-    printShipOnGameboard(this.gameboard.gameboard, 'carrier');
-    return carrier;
-  }
-
-  /*     createBoardUi() {
-      createGameboardUi(this.gameboard);
-  } */
 }

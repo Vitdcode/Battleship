@@ -25,8 +25,9 @@ export class Gameboard {
     return xAxis;
   }
 
-  placeShipOnGameboard(playerBoard, shipName, orientation, shipPartCounter = 1) {
-    console.log(orientation);
+  createShipData(playerBoard, orientation, shipPartCounter = 1) {
+    console.log(this.name);
+    console.log(this.length);
     const coorinates = this.randomizeCoordinates();
     const randomXAxis = coorinates[0];
     const randomYAxis = coorinates[1];
@@ -38,7 +39,7 @@ export class Gameboard {
       this.surroundingSpacesAreEmptyCheckVertical(playerBoard, randomXAxis, randomYAxis)
     ) {
       for (let i = randomYAxis; i < randomYAxis + this.length; i++) {
-        randomRow[i] = `${shipName}-${shipPartCounter++}`;
+        randomRow[i] = `${this.name}-${shipPartCounter++}`;
       }
     } else if (
       orientation === 'horizontal' &&
@@ -46,15 +47,10 @@ export class Gameboard {
     ) {
       const indexInXAxis = this.xAxis().indexOf(randomXAxis);
       for (let i = indexInXAxis; i < indexInXAxis + this.length; i++) {
-        playerBoard[this.xAxis()[i]][randomYAxis] = `${shipName}-${shipPartCounter++}`;
+        playerBoard[this.xAxis()[i]][randomYAxis] = `${this.name}-${shipPartCounter++}`;
       }
     } else {
-      this.placeShipOnGameboard(
-        playerBoard,
-        shipName,
-        this.randomizeOrientation(),
-        (shipPartCounter = 1)
-      );
+      this.createShipData(playerBoard, this.randomizeOrientation(), (shipPartCounter = 1));
     }
   }
 

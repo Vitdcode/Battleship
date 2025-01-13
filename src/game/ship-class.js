@@ -1,28 +1,26 @@
 import { Gameboard } from './gameboard-class';
 
 export class Ship extends Gameboard {
-  constructor(length) {
+  constructor(name, length) {
     super();
+    this.name = name;
     this.length = length;
-    this.hit = 0;
+    this.hitCount = 0;
     this.isSunk = false;
   }
 
-  hit() {
+  increaseHitCount() {
     return (this.hit += 1);
   }
 
-  isSunk() {
-    if (this.hit === this.length) {
+  checkIfSunk() {
+    if (this.hitCount === this.length) {
       return (this.isSunk = true);
     }
+    return false;
   }
 
-  placeCarrier(playerBoard) {
-    super.placeShipOnGameboard(playerBoard, 'carrier', super.randomizeOrientation());
-  }
-
-  placeBattleship(playerBoard) {
-    super.placeShipOnGameboard(playerBoard, 'battleship', super.randomizeOrientation());
+  createShipData(playerBoard) {
+    super.createShipData(playerBoard, super.randomizeOrientation());
   }
 }
