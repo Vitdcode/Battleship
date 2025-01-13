@@ -102,8 +102,8 @@ export class Gameboard {
     const currentLetterIndex = this.xAxis().indexOf(randomXAxis);
     const offset = direction === 'left' ? -1 : 1;
     const AdjacentLetterArrayOnBoard = playerBoard[this.xAxis()[currentLetterIndex + offset]];
-
-    return AdjacentLetterArrayOnBoard?.slice(randomYAxis, randomYAxis + this.length).every(
+    console.log(`${randomYAxis + this.length} ${this.name} ${direction}`);
+    return AdjacentLetterArrayOnBoard?.slice(randomYAxis, randomYAxis + this.length + 1).every(
       (item) => item === ''
     );
   }
@@ -144,8 +144,8 @@ export class Gameboard {
     const indexInXAxis = this.xAxis().indexOf(randomXAxis);
     let booleanArray = [];
 
-    for (let i = indexInXAxis; i < indexInXAxis + this.length; i++) {
-      if (playerBoard[this.xAxis()[i]][randomYAxis + offset] != '') {
+    for (let i = indexInXAxis - 1; i <= indexInXAxis + this.length; i++) {
+      if (playerBoard[this.xAxis()[i]]?.[randomYAxis + offset] != '') {
         booleanArray.push(false);
       }
     }
