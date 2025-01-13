@@ -2,10 +2,11 @@ import { createGameboardUi, printShipOnGameboard } from '../../ui/gameboard-ui';
 import { Gameboard } from '../gameboard-class';
 import { Ship } from '../ship-class';
 
-export class Player1 {
-  constructor(name = 'Player 1') {
+export class Player {
+  constructor(name = 'Player 1', id) {
+    this.id = id;
     this.gameboard = new Gameboard();
-    this.gameboardUi = createGameboardUi(this.gameboard.gameboard);
+    this.gameboardUi = createGameboardUi(this.gameboard.gameboard, this.id);
     this.name = name;
     this.ships = {
       carrier: this.createShip('carrier', 5),
@@ -19,7 +20,7 @@ export class Player1 {
   createShip(name, length) {
     const ship = new Ship(name, length);
     ship.createShipData(this.gameboard.gameboard);
-    printShipOnGameboard(this.gameboard.gameboard, name);
+    printShipOnGameboard(this.gameboard.gameboard, name, this.id);
     return ship;
   }
 }

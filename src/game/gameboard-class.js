@@ -26,8 +26,6 @@ export class Gameboard {
   }
 
   createShipData(playerBoard, orientation, shipPartCounter = 1) {
-    console.log(this.name);
-    console.log(this.length);
     const coorinates = this.randomizeCoordinates();
     const randomXAxis = coorinates[0];
     const randomYAxis = coorinates[1];
@@ -102,7 +100,6 @@ export class Gameboard {
     const currentLetterIndex = this.xAxis().indexOf(randomXAxis);
     const offset = direction === 'left' ? -1 : 1;
     const AdjacentLetterArrayOnBoard = playerBoard[this.xAxis()[currentLetterIndex + offset]];
-    console.log(`${randomYAxis + this.length} ${this.name} ${direction}`);
     return AdjacentLetterArrayOnBoard?.slice(randomYAxis, randomYAxis + this.length + 1).every(
       (item) => item === ''
     );
