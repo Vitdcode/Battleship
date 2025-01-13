@@ -70,8 +70,16 @@ body {
   color: white;
 }
 
-#playerBoard-pl1,
-#playerBoard-pl2 {
+#board-and-trackingBoard-wrapper-pl1,
+#board-and-trackingBoard-wrapper-pl2 {
+  display: flex;
+  gap: 60px;
+}
+
+#player-board-pl1,
+#player-board-pl2,
+#tracking-board-pl1,
+#tracking-board-pl2 {
   display: grid;
   background-color: rgba(230, 97, 148, 0.233);
   border-radius: 10px;
@@ -103,7 +111,9 @@ body {
 }
 
 #board-wrapper-pl1,
-#board-wrapper-pl2 {
+#board-wrapper-pl2,
+#tracking-board-cells-wrapper-pl1,
+#tracking-board-cells-wrapper-pl2 {
   display: grid;
   grid-auto-flow: column;
   height: 800px;
