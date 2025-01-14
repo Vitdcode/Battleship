@@ -1,4 +1,4 @@
-import { attackShip } from '../game/attack-ship';
+import { attackShipEventListener } from '../game/attack-ship';
 
 export function createGameboardUi(gameboard, id) {
   const boardAndTrackingBoardWrapper = document.createElement('div');
@@ -7,8 +7,8 @@ export function createGameboardUi(gameboard, id) {
   const trackingBoard = createTrackingBoard(id, boardAndTrackingBoardWrapper);
   document.body.appendChild(boardAndTrackingBoardWrapper);
   createCells(gameboard, board, id);
-  createCells(gameboard, trackingBoard, id);
-  attackShip();
+  createCells(gameboard, trackingBoard, `trackingboard-${id}`);
+  attackShipEventListener(id);
 }
 
 function createCells(gameboard, boardWrapper, id) {
@@ -93,4 +93,21 @@ function createTrackingBoard(id, boardAndTrackingBoardWrapper) {
   boardAndTrackingBoardWrapper.appendChild(trackingBoard);
 
   return trackingBoardCellsWrapper;
+}
+
+export function createShipsUnderBoard(playerId, ships) {
+  console.log(ships);
+  const boardAndTrackingBoardWrapper = document.querySelector(
+    `#board-and-trackingBoard-wrapper-${playerId}`
+  );
+  const shipsUnderBoardWrapper = document.createElement('div');
+  shipsUnderBoardWrapper.id = `ships-under-board-${playerId}`;
+  boardAndTrackingBoardWrapper.appendChild(shipsUnderBoardWrapper);
+
+  for (const ship in ships) {
+    const shipText = document.createElement('h3');
+    shipText.textContent = `${ships[ship].name} (${ships[ship].length})`;
+    shipText.className = 'ship-text-under-board';
+    shipsUnderBoardWrapper.appendChild(shipText);
+  }
 }

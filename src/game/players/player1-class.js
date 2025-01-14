@@ -1,13 +1,18 @@
-import { createGameboardUi, printShipOnGameboard } from '../../ui/gameboard-ui';
+import {
+  createGameboardUi,
+  createShipsUnderBoard,
+  printShipOnGameboard,
+} from '../../ui/gameboard-ui';
 import { Gameboard } from '../gameboard-class';
 import { Ship } from '../ship-class';
 
 export class Player {
   constructor(name = 'Player 1', id) {
     this.id = id;
+    this.name = name;
     this.gameboard = new Gameboard();
     this.gameboardUi = createGameboardUi(this.gameboard.gameboard, this.id);
-    this.name = name;
+    this.playersTurn = false;
     this.ships = {
       carrier: this.createShip('carrier', 5),
       battleship: this.createShip('battleship', 4),
@@ -15,8 +20,8 @@ export class Player {
       submarine: this.createShip('submarine', 3),
       destroyer: this.createShip('destroyer', 2),
     };
+    this.shipTextUnderBoard = createShipsUnderBoard(this.id, this.ships);
   }
-
   createShip(name, length) {
     const ship = new Ship(name, length);
     ship.createShipData(this.gameboard.gameboard);
