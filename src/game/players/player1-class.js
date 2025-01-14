@@ -5,9 +5,9 @@ import { Ship } from '../ship-class';
 export class Player {
   constructor(name = 'Player 1', id) {
     this.id = id;
+    this.name = name;
     this.gameboard = new Gameboard();
     this.gameboardUi = createGameboardUi(this.gameboard.gameboard, this.id);
-    this.name = name;
     this.ships = {
       carrier: this.createShip('carrier', 5),
       battleship: this.createShip('battleship', 4),

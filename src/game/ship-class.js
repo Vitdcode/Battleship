@@ -10,7 +10,7 @@ export class Ship extends Gameboard {
   }
 
   increaseHitCount() {
-    return (this.hit += 1);
+    return (this.hitCount += 1);
   }
 
   checkIfSunk() {

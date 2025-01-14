@@ -1,4 +1,4 @@
-import { attackShip } from '../game/attack-ship';
+import { attackShipEventListener } from '../game/attack-ship';
 
 export function createGameboardUi(gameboard, id) {
   const boardAndTrackingBoardWrapper = document.createElement('div');
@@ -7,8 +7,8 @@ export function createGameboardUi(gameboard, id) {
   const trackingBoard = createTrackingBoard(id, boardAndTrackingBoardWrapper);
   document.body.appendChild(boardAndTrackingBoardWrapper);
   createCells(gameboard, board, id);
-  createCells(gameboard, trackingBoard, id);
-  attackShip();
+  createCells(gameboard, trackingBoard, `trackingboard-${id}`);
+  attackShipEventListener(id);
 }
 
 function createCells(gameboard, boardWrapper, id) {
