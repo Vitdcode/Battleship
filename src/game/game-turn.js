@@ -10,11 +10,11 @@ export function playersTurnCheck() {
   const player2Boards = document.querySelector('#board-and-trackingBoard-wrapper-pl2');
   if (player1.playersTurn) {
     playersTurnText(`${player1.name} turn`);
-    player1Boards.style.display = 'flex';
+    player1Boards.style.display = 'grid';
     player2Boards.style.display = 'none';
   } else if (player2.playersTurn) {
     playersTurnText(`${player2.name} turn`);
-    player2Boards.style.display = 'flex';
+    player2Boards.style.display = 'grid';
     player1Boards.style.display = 'none';
   }
 }

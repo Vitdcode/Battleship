@@ -70,10 +70,26 @@ body {
   color: white;
 }
 
-#board-and-trackingBoard-wrapper-pl1,
+/* #board-and-trackingBoard-wrapper-pl1,
 #board-and-trackingBoard-wrapper-pl2 {
   display: flex;
   gap: 60px;
+}
+ */
+#board-and-trackingBoard-wrapper-pl1,
+#board-and-trackingBoard-wrapper-pl2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+
+#ships-under-board-pl1 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 20px;
+  color: white;
+  font-size: 1.3rem;
 }
 
 #player-board-pl1,
