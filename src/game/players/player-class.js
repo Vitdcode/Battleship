@@ -7,7 +7,7 @@ import { Gameboard } from '../gameboard-class';
 import { Ship } from '../ship-class';
 
 export class Player {
-  constructor(name = 'Player 1', id) {
+  constructor(name, id) {
     this.id = id;
     this.name = name;
     this.gameboard = new Gameboard();
@@ -20,7 +20,11 @@ export class Player {
       submarine: this.createShip('submarine', 3),
       destroyer: this.createShip('destroyer', 2),
     };
-    this.shipTextUnderBoard = createShipsUnderBoard(this.id, this.ships);
+    this.shipTextUnderBoard = createShipsUnderBoard(
+      this.ships,
+      document.querySelector(`#board-and-trackingBoard-wrapper-${this.id}`),
+      `ships-under-board-${this.id}`
+    );
   }
   createShip(name, length) {
     const ship = new Ship(name, length);

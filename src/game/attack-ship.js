@@ -44,6 +44,8 @@ function evaluateAttack(otherPlayerShips, shipName) {
   if (shipHitCount < shiplength) {
     ship.increaseHitCount();
     ship.checkIfSunk();
+  }
+  if (ship.isSunk) {
     attackHit(ship);
   }
 

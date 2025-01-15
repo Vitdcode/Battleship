@@ -7,8 +7,3 @@ export function attackMiss() {
 
   playersTurnCheck();
 }
-
-export function attackHit(ship) {
-  if (ship.isSunk) {
-  }
-}

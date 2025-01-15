@@ -80,10 +80,25 @@ body {
 #board-and-trackingBoard-wrapper-pl2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 0.1fr 1fr 0.2fr;
   gap: 60px;
 }
 
-#ships-under-board-pl1 {
+.board {
+  grid-column: 1/2;
+  grid-row: 2/2;
+}
+
+#board-header-pl1,
+#board-header-pl2 {
+  text-align: center;
+  color: white;
+}
+
+#ships-under-board-pl1,
+#ships-under-board-pl2,
+#ships-under-trackingboard-pl1,
+#ships-under-trackingboard-pl2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;

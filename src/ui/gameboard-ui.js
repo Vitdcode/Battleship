@@ -3,8 +3,8 @@ import { attackShipEventListener } from '../game/attack-ship';
 export function createGameboardUi(gameboard, id) {
   const boardAndTrackingBoardWrapper = document.createElement('div');
   boardAndTrackingBoardWrapper.id = `board-and-trackingBoard-wrapper-${id}`;
-  const board = createBoard(id, boardAndTrackingBoardWrapper);
-  const trackingBoard = createTrackingBoard(id, boardAndTrackingBoardWrapper);
+  const board = createBoard(id, boardAndTrackingBoardWrapper, 'Your Grid');
+  const trackingBoard = createTrackingBoard(id, boardAndTrackingBoardWrapper, 'Opponents Grid');
   document.body.appendChild(boardAndTrackingBoardWrapper);
   createCells(gameboard, board, id);
   createCells(gameboard, trackingBoard, `trackingboard-${id}`);
@@ -65,9 +65,10 @@ function createBoardNumbers() {
   return boardNumbersDiv;
 }
 
-export function createBoard(id, boardAndTrackingBoardWrapper) {
+export function createBoard(id, boardAndTrackingBoardWrapper, headerText) {
   const playerBoard = document.createElement('div');
   playerBoard.id = `player-board-${id}`;
+  playerBoard.className = 'board';
 
   playerBoard.appendChild(createBoardLetters());
   playerBoard.appendChild(createBoardNumbers());
@@ -75,14 +76,19 @@ export function createBoard(id, boardAndTrackingBoardWrapper) {
   const boardWrapper = document.createElement('div');
   boardWrapper.id = `board-wrapper-${id}`;
   playerBoard.appendChild(boardWrapper);
-  boardAndTrackingBoardWrapper.appendChild(playerBoard);
+
+  const header = document.createElement('h3');
+  header.textContent = headerText;
+  header.id = `board-header-${id}`;
+  boardAndTrackingBoardWrapper.append(header, playerBoard);
 
   return boardWrapper;
 }
 
-function createTrackingBoard(id, boardAndTrackingBoardWrapper) {
+function createTrackingBoard(id, boardAndTrackingBoardWrapper, headerText) {
   const trackingBoard = document.createElement('div');
   trackingBoard.id = `tracking-board-${id}`;
+  trackingBoard.className = 'tracking-board';
 
   trackingBoard.appendChild(createBoardLetters());
   trackingBoard.appendChild(createBoardNumbers());
@@ -90,24 +96,29 @@ function createTrackingBoard(id, boardAndTrackingBoardWrapper) {
   const trackingBoardCellsWrapper = document.createElement('div');
   trackingBoardCellsWrapper.id = `tracking-board-cells-wrapper-${id}`;
   trackingBoard.appendChild(trackingBoardCellsWrapper);
-  boardAndTrackingBoardWrapper.appendChild(trackingBoard);
+
+  const header = document.createElement('h3');
+  header.textContent = headerText;
+  header.id = `board-header-${id}`;
+  boardAndTrackingBoardWrapper.append(header, trackingBoard);
 
   return trackingBoardCellsWrapper;
 }
 
-export function createShipsUnderBoard(playerId, ships) {
-  console.log(ships);
-  const boardAndTrackingBoardWrapper = document.querySelector(
-    `#board-and-trackingBoard-wrapper-${playerId}`
-  );
+export function createShipsUnderBoard(ships, boardWrapperSelector, shipsUnderBoardId) {
   const shipsUnderBoardWrapper = document.createElement('div');
-  shipsUnderBoardWrapper.id = `ships-under-board-${playerId}`;
-  boardAndTrackingBoardWrapper.appendChild(shipsUnderBoardWrapper);
+  shipsUnderBoardWrapper.id = shipsUnderBoardId;
+  boardWrapperSelector.appendChild(shipsUnderBoardWrapper);
 
   for (const ship in ships) {
     const shipText = document.createElement('h3');
     shipText.textContent = `${ships[ship].name} (${ships[ship].length})`;
     shipText.className = 'ship-text-under-board';
     shipsUnderBoardWrapper.appendChild(shipText);
+  }
+}
+
+export function shipIsSunkInUI(ship) {
+  if (ship.isSunk) {
   }
 }
