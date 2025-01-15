@@ -11,12 +11,14 @@ initializeGame();
 console.log(player1);
 
 createShipsUnderBoard(
+  player2.id,
   player2.ships,
   document.querySelector(`#board-and-trackingBoard-wrapper-${player1.id}`),
   `ships-under-trackingboard-${player2.id}`
 );
 
 createShipsUnderBoard(
+  player1.id,
   player1.ships,
   document.querySelector(`#board-and-trackingBoard-wrapper-${player2.id}`),
   `ships-under-trackingboard-${player1.id}`

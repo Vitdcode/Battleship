@@ -105,7 +105,7 @@ function createTrackingBoard(id, boardAndTrackingBoardWrapper, headerText) {
   return trackingBoardCellsWrapper;
 }
 
-export function createShipsUnderBoard(ships, boardWrapperSelector, shipsUnderBoardId) {
+export function createShipsUnderBoard(playerId, ships, boardWrapperSelector, shipsUnderBoardId) {
   const shipsUnderBoardWrapper = document.createElement('div');
   shipsUnderBoardWrapper.id = shipsUnderBoardId;
   boardWrapperSelector.appendChild(shipsUnderBoardWrapper);
@@ -113,12 +113,19 @@ export function createShipsUnderBoard(ships, boardWrapperSelector, shipsUnderBoa
   for (const ship in ships) {
     const shipText = document.createElement('h3');
     shipText.textContent = `${ships[ship].name} (${ships[ship].length})`;
-    shipText.className = 'ship-text-under-board';
+    shipText.className = `ship-text-under-board-${playerId}`;
     shipsUnderBoardWrapper.appendChild(shipText);
   }
 }
 
-export function shipIsSunkInUI(ship) {
-  if (ship.isSunk) {
-  }
+export function shipIsSunkInUI(ship, id) {
+  const playerId = id === 'pl1' ? 'pl2' : 'pl1';
+  const shipNameUnderBoard = document.querySelectorAll(`.ship-text-under-board-${playerId}`);
+  shipNameUnderBoard.forEach((shipName) => {
+    const formattedShipname = shipName.textContent.split(' ')[0];
+    if (formattedShipname === ship.name) {
+      shipName.style.color = 'rgb(255, 0, 85)';
+      shipName.style.textDecoration = 'line-through';
+    }
+  });
 }

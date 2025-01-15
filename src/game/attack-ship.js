@@ -1,15 +1,16 @@
 import { player1, player2 } from '../main';
-import { attackHit, attackMiss } from './game-logic';
+import { shipIsSunkInUI } from '../ui/gameboard-ui';
+import { allShipsSunkCheck, attackHit, attackMiss } from './game-logic';
 
 export function attackShipEventListener(id) {
   const trackingBaord = document.querySelector(`#tracking-board-cells-wrapper-${id}`);
   trackingBaord.addEventListener('click', (event) => {
     const gridCellId = event.target.id;
-    attackShip(gridCellId);
+    attackShip(gridCellId, id);
   });
 }
 
-function attackShip(gridCellId) {
+function attackShip(gridCellId, id) {
   let otherPlayerGridCell;
   let otherPlayerShips;
 
@@ -29,14 +30,14 @@ function attackShip(gridCellId) {
     shipSelector.style.backgroundColor = 'rgb(15, 31, 55)';
     currentPlayerGridCellSelector.style.backgroundColor = 'rgb(15, 31, 55)';
     const shipName = shipSelector.id.split('-')[0]; //returns just the ship name ex. carrier and not carrier-3
-    evaluateAttack(otherPlayerShips, shipName);
+    evaluateAttack(otherPlayerShips, shipName, id);
   } else {
     currentPlayerGridCellSelector.style.backgroundColor = 'grey';
     attackMiss();
   }
 }
 
-function evaluateAttack(otherPlayerShips, shipName) {
+function evaluateAttack(otherPlayerShips, shipName, id) {
   const ship = otherPlayerShips[shipName];
   const shipHitCount = ship.hitCount;
   const shiplength = ship.length;
@@ -46,8 +47,7 @@ function evaluateAttack(otherPlayerShips, shipName) {
     ship.checkIfSunk();
   }
   if (ship.isSunk) {
-    attackHit(ship);
+    shipIsSunkInUI(ship, id);
+    allShipsSunkCheck(otherPlayerShips, id);
   }
-
-  console.log(ship);
 }

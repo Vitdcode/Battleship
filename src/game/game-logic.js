@@ -7,3 +7,14 @@ export function attackMiss() {
 
   playersTurnCheck();
 }
+
+export function allShipsSunkCheck(ships, id) {
+  const player = id === 'pl1' ? player1 : player2;
+  const shipsSunkBoolean = [];
+  for (const ship in ships) {
+    shipsSunkBoolean.push(ships[ship].isSunk);
+  }
+  if (shipsSunkBoolean.every((item) => shipsSunkBoolean[0] === item)) {
+    alert(`${player.name} has won`);
+  }
+}

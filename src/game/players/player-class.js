@@ -21,6 +21,7 @@ export class Player {
       destroyer: this.createShip('destroyer', 2),
     };
     this.shipTextUnderBoard = createShipsUnderBoard(
+      this.id,
       this.ships,
       document.querySelector(`#board-and-trackingBoard-wrapper-${this.id}`),
       `ships-under-board-${this.id}`
