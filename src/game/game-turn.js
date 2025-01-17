@@ -1,4 +1,5 @@
 import { player1, player2 } from '../main';
+import { trackingBoardEventListenerAi } from './players/ai-player';
 
 export function initializeGame() {
   player1.playersTurn = true;
@@ -13,9 +14,12 @@ export function playersTurnCheck() {
     player1Boards.style.display = 'grid';
     player2Boards.style.display = 'none';
   } else if (player2.playersTurn) {
-    playersTurnText(`${player2.name} turn`);
-    player2Boards.style.display = 'grid';
-    player1Boards.style.display = 'none';
+    setTimeout(() => {
+      playersTurnText(`${player2.name} turn`);
+      player2Boards.style.display = 'grid';
+      player1Boards.style.display = 'none';
+    });
+    trackingBoardEventListenerAi();
   }
 }
 

@@ -5,8 +5,8 @@ import { Ship } from './game/ship-class';
 import './style.css';
 import { createShipsUnderBoard } from './ui/gameboard-ui';
 
-export const player1 = new Player('Coolguy', 'pl1');
-export const player2 = new Player('Boss', 'pl2');
+export const player1 = new Player('Player 1', 'pl1');
+export const player2 = new Player('AI', 'pl2');
 initializeGame();
 console.log(player1);
 

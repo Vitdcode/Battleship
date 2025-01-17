@@ -1,6 +1,7 @@
 import { player1, player2 } from '../main';
 import { shipIsSunkInUI } from '../ui/gameboard-ui';
 import { allShipsSunkCheck, attackHit, attackMiss } from './game-logic';
+import { trackingBoardEventListenerAi } from './players/ai-player';
 
 export function attackShipEventListener(id) {
   const trackingBaord = document.querySelector(`#tracking-board-cells-wrapper-${id}`);
@@ -10,7 +11,7 @@ export function attackShipEventListener(id) {
   });
 }
 
-function attackShip(gridCellId, id) {
+export function attackShip(gridCellId, id) {
   let otherPlayerGridCell;
   let otherPlayerShips;
 
